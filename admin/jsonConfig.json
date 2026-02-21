@@ -1,0 +1,380 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "generalTab": {
+            "type": "panel",
+            "label": {
+                "en": "General Settings",
+                "de": "Allgemeine Einstellungen"
+            },
+            "items": {
+                "_header_backend": {
+                    "type": "header",
+                    "text": {
+                        "en": "Backend",
+                        "de": "Backend"
+                    },
+                    "size": 4,
+                    "sm": 12
+                },
+                "backend": {
+                    "type": "select",
+                    "label": {
+                        "en": "Communication Backend",
+                        "de": "Kommunikations-Backend"
+                    },
+                    "options": [
+                        {
+                            "label": {
+                                "en": "pyatv (recommended, supports tvOS 15+)",
+                                "de": "pyatv (empfohlen, unterstützt tvOS 15+)"
+                            },
+                            "value": "pyatv"
+                        },
+                        {
+                            "label": {
+                                "en": "node-appletv-x (legacy, Node.js native)",
+                                "de": "node-appletv-x (Legacy, natives Node.js)"
+                            },
+                            "value": "node-appletv-x"
+                        }
+                    ],
+                    "sm": 12,
+                    "md": 6,
+                    "help": {
+                        "en": "pyatv is automatically installed if not present. Supports all tvOS versions including 15+.",
+                        "de": "pyatv wird automatisch installiert falls nicht vorhanden. Unterstützt alle tvOS-Versionen inkl. 15+."
+                    }
+                },
+                "_checkPyatv": {
+                    "type": "sendTo",
+                    "label": {
+                        "en": "Check pyatv",
+                        "de": "pyatv prüfen"
+                    },
+                    "command": "checkPyatv",
+                    "variant": "outlined",
+                    "hidden": "data.backend !== 'pyatv'",
+                    "sm": 6,
+                    "md": 3,
+                    "icon": "search",
+                    "alsoDependsOn": ["backend"]
+                },
+                "_installPyatv": {
+                    "type": "sendTo",
+                    "label": {
+                        "en": "Install pyatv",
+                        "de": "pyatv installieren"
+                    },
+                    "command": "installPyatv",
+                    "variant": "contained",
+                    "color": "secondary",
+                    "hidden": "data.backend !== 'pyatv'",
+                    "sm": 6,
+                    "md": 3,
+                    "icon": "download",
+                    "alsoDependsOn": ["backend"]
+                },
+                "_divider1": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "_header_discovery": {
+                    "type": "header",
+                    "text": {
+                        "en": "Auto-Discovery",
+                        "de": "Automatische Erkennung"
+                    },
+                    "size": 4,
+                    "sm": 12
+                },
+                "autoDiscovery": {
+                    "type": "checkbox",
+                    "label": {
+                        "en": "Automatically discover Apple TVs on the network",
+                        "de": "Apple TVs im Netzwerk automatisch erkennen"
+                    },
+                    "sm": 12,
+                    "md": 6,
+                    "help": {
+                        "en": "When enabled, the adapter automatically scans the network and adds new devices. Credentials and IP addresses are updated automatically.",
+                        "de": "Wenn aktiviert, scannt der Adapter automatisch das Netzwerk und fügt neue Geräte hinzu. Zugangsdaten und IP-Adressen werden automatisch aktualisiert."
+                    }
+                },
+                "scanInterval": {
+                    "type": "number",
+                    "label": {
+                        "en": "Discovery Interval (seconds)",
+                        "de": "Erkennungsintervall (Sekunden)"
+                    },
+                    "min": 60,
+                    "max": 3600,
+                    "step": 30,
+                    "sm": 12,
+                    "md": 6,
+                    "hidden": "!data.autoDiscovery",
+                    "help": {
+                        "en": "How often to scan for new Apple TV devices. Default: 300 seconds (5 minutes).",
+                        "de": "Wie oft nach neuen Apple TVs gesucht wird. Standard: 300 Sekunden (5 Minuten)."
+                    }
+                },
+                "_divider2": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "_header_intervals": {
+                    "type": "header",
+                    "text": {
+                        "en": "Update Intervals",
+                        "de": "Aktualisierungsintervalle"
+                    },
+                    "size": 4,
+                    "sm": 12
+                },
+                "pollingInterval": {
+                    "type": "number",
+                    "label": {
+                        "en": "Polling Interval (seconds)",
+                        "de": "Abfrageintervall (Sekunden)"
+                    },
+                    "min": 3,
+                    "max": 300,
+                    "step": 1,
+                    "sm": 12,
+                    "md": 6,
+                    "help": {
+                        "en": "How often to poll status when push updates are not available. Default: 10s.",
+                        "de": "Wie oft der Status abgefragt wird, wenn Push-Updates nicht verfügbar sind. Standard: 10s."
+                    }
+                },
+                "artworkInterval": {
+                    "type": "number",
+                    "label": {
+                        "en": "Artwork Interval (seconds)",
+                        "de": "Artwork-Intervall (Sekunden)"
+                    },
+                    "min": 10,
+                    "max": 300,
+                    "step": 5,
+                    "sm": 12,
+                    "md": 6,
+                    "help": {
+                        "en": "How often to fetch cover artwork. Default: 30s.",
+                        "de": "Wie oft das Cover-Artwork abgerufen wird. Standard: 30s."
+                    }
+                }
+            }
+        },
+        "devicesTab": {
+            "type": "panel",
+            "label": {
+                "en": "Devices & Pairing",
+                "de": "Geräte & Pairing"
+            },
+            "items": {
+                "_scanInfo": {
+                    "type": "header",
+                    "text": {
+                        "en": "Click Scan to discover Apple TVs, then use Pair to authenticate.",
+                        "de": "Klicke Scan um Apple TVs zu finden, dann Pair zur Authentifizierung."
+                    },
+                    "size": 5,
+                    "sm": 12
+                },
+                "_scanButton": {
+                    "type": "sendTo",
+                    "label": {
+                        "en": "Scan Network",
+                        "de": "Netzwerk scannen"
+                    },
+                    "command": "scanDevices",
+                    "variant": "contained",
+                    "color": "primary",
+                    "icon": "search",
+                    "sm": 12,
+                    "md": 3
+                },
+                "_divider3": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "devices": {
+                    "type": "table",
+                    "label": {
+                        "en": "Discovered & Configured Apple TVs",
+                        "de": "Erkannte & konfigurierte Apple TVs"
+                    },
+                    "sm": 12,
+                    "items": [
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": {
+                                "en": "Name",
+                                "de": "Name"
+                            },
+                            "width": "15%",
+                            "default": ""
+                        },
+                        {
+                            "type": "text",
+                            "attr": "address",
+                            "title": {
+                                "en": "IP",
+                                "de": "IP"
+                            },
+                            "width": "10%",
+                            "default": ""
+                        },
+                        {
+                            "type": "text",
+                            "attr": "identifier",
+                            "title": {
+                                "en": "Identifier",
+                                "de": "Kennung"
+                            },
+                            "width": "18%",
+                            "default": ""
+                        },
+                        {
+                            "type": "text",
+                            "attr": "mac",
+                            "title": {
+                                "en": "MAC",
+                                "de": "MAC"
+                            },
+                            "width": "10%",
+                            "default": ""
+                        },
+                        {
+                            "type": "text",
+                            "attr": "airplayCredentials",
+                            "title": {
+                                "en": "AirPlay Cred.",
+                                "de": "AirPlay Cred."
+                            },
+                            "width": "15%",
+                            "default": ""
+                        },
+                        {
+                            "type": "text",
+                            "attr": "companionCredentials",
+                            "title": {
+                                "en": "Companion Cred.",
+                                "de": "Companion Cred."
+                            },
+                            "width": "15%",
+                            "default": ""
+                        },
+                        {
+                            "type": "text",
+                            "attr": "mrpCredentials",
+                            "title": {
+                                "en": "MRP Cred.",
+                                "de": "MRP Cred."
+                            },
+                            "width": "12%",
+                            "default": ""
+                        }
+                    ]
+                },
+                "_divider4": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "_header_pairing": {
+                    "type": "header",
+                    "text": {
+                        "en": "Pairing",
+                        "de": "Pairing"
+                    },
+                    "size": 4,
+                    "sm": 12
+                },
+                "_pairHelp": {
+                    "type": "header",
+                    "text": {
+                        "en": "Step 1: Click 'Start Pairing'. A PIN will appear on your Apple TV. Step 2: Click 'Submit PIN' and enter the 4-digit code. Credentials are saved automatically.",
+                        "de": "Schritt 1: Klicke 'Pairing starten'. Ein PIN erscheint auf dem Apple TV. Schritt 2: Klicke 'PIN eingeben' und gib den 4-stelligen Code ein. Credentials werden automatisch gespeichert."
+                    },
+                    "size": 5,
+                    "sm": 12
+                },
+                "pairIdentifier": {
+                    "type": "text",
+                    "label": {
+                        "en": "Device Identifier (from table above)",
+                        "de": "Geräte-Kennung (aus Tabelle oben)"
+                    },
+                    "sm": 12,
+                    "md": 4,
+                    "help": {
+                        "en": "Copy the identifier from the device table above.",
+                        "de": "Kopiere die Kennung aus der Gerätetabelle oben."
+                    }
+                },
+                "pairProtocol": {
+                    "type": "select",
+                    "label": {
+                        "en": "Protocol",
+                        "de": "Protokoll"
+                    },
+                    "options": [
+                        { "label": "AirPlay", "value": "airplay" },
+                        { "label": "Companion", "value": "companion" }
+                    ],
+                    "sm": 12,
+                    "md": 2,
+                    "help": {
+                        "en": "AirPlay: required for basic control. Companion: needed for app launching.",
+                        "de": "AirPlay: für grundlegende Steuerung. Companion: für App-Start nötig."
+                    }
+                },
+                "_startPairButton": {
+                    "type": "sendTo",
+                    "label": {
+                        "en": "Start Pairing",
+                        "de": "Pairing starten"
+                    },
+                    "command": "startPairing",
+                    "variant": "contained",
+                    "color": "primary",
+                    "sm": 12,
+                    "md": 2,
+                    "icon": "link",
+                    "data": "{ \"identifier\": \"${data.pairIdentifier}\", \"protocol\": \"${data.pairProtocol}\" }",
+                    "alsoDependsOn": ["pairIdentifier", "pairProtocol"]
+                },
+                "pairPin": {
+                    "type": "text",
+                    "label": {
+                        "en": "PIN (4 digits shown on TV)",
+                        "de": "PIN (4 Ziffern vom TV)"
+                    },
+                    "sm": 12,
+                    "md": 2,
+                    "help": {
+                        "en": "Enter the 4-digit PIN displayed on your Apple TV screen.",
+                        "de": "Gib den 4-stelligen PIN ein, der auf deinem Apple TV angezeigt wird."
+                    }
+                },
+                "_submitPinButton": {
+                    "type": "sendTo",
+                    "label": {
+                        "en": "Submit PIN",
+                        "de": "PIN senden"
+                    },
+                    "command": "submitPin",
+                    "variant": "contained",
+                    "color": "secondary",
+                    "sm": 12,
+                    "md": 2,
+                    "icon": "check",
+                    "data": "{ \"identifier\": \"${data.pairIdentifier}\", \"pin\": \"${data.pairPin}\", \"protocol\": \"${data.pairProtocol}\" }",
+                    "alsoDependsOn": ["pairIdentifier", "pairPin", "pairProtocol"]
+                }
+            }
+        }
+    }
+}

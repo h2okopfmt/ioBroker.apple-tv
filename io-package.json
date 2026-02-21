@@ -1,0 +1,83 @@
+{
+    "common": {
+        "name": "apple-tv",
+        "version": "0.1.0",
+        "titleLang": {
+            "en": "Apple TV",
+            "de": "Apple TV"
+        },
+        "desc": {
+            "en": "Automatically discover and control Apple TV devices",
+            "de": "Apple TV Geräte automatisch erkennen und steuern"
+        },
+        "authors": ["Markus"],
+        "keywords": ["apple tv", "appletv", "remote", "media", "pyatv", "airplay", "smart home"],
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "apple-tv.png",
+        "enabled": true,
+        "loglevel": "info",
+        "tier": 3,
+        "mode": "daemon",
+        "type": "multimedia",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "push",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=5.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=6.0.0"
+            }
+        ],
+        "messagebox": true,
+        "supportedMessages": {
+            "custom": true
+        }
+    },
+    "native": {
+        "backend": "pyatv",
+        "autoDiscovery": true,
+        "scanInterval": 300,
+        "pollingInterval": 10,
+        "artworkInterval": 30,
+        "pairIdentifier": "",
+        "pairProtocol": "airplay",
+        "pairPin": "",
+        "devices": []
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Adapter Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "name": "Adapter connected",
+                "type": "boolean",
+                "role": "indicator.connected",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
+    ]
+}
