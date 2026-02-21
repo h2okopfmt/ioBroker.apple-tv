@@ -8,6 +8,7 @@
     "Install pyatv": "pyatv installieren",
     "Auto-Discovery": "Automatische Erkennung",
     "Automatically discover Apple TVs on the network": "Apple TVs im Netzwerk automatisch erkennen",
+    "Scan Hosts (optional)": "Scan-Ziele (optional)",
     "Discovery Interval (seconds)": "Erkennungsintervall (Sekunden)",
     "Update Intervals": "Aktualisierungsintervalle",
     "Polling Interval (seconds)": "Abfrageintervall (Sekunden)",

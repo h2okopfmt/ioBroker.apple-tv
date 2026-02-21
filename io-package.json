@@ -49,6 +49,7 @@
     "native": {
         "backend": "pyatv",
         "autoDiscovery": true,
+        "scanHosts": "",
         "scanInterval": 300,
         "pollingInterval": 10,
         "artworkInterval": 30,

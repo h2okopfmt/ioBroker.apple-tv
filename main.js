@@ -97,7 +97,8 @@ class AppleTvAdapter extends utils.Adapter {
         this.log.info('Scanning network for Apple TV devices...');
         try {
             const scanBackend = this.backendFactory.create({});
-            const foundDevices = await scanBackend.scan();
+            const scanHosts = this.config.scanHosts || '';
+            const foundDevices = await scanBackend.scan(scanHosts);
             this.log.info('Found ' + foundDevices.length + ' Apple TV(s) on network');
 
             if (foundDevices.length === 0) return;
@@ -261,7 +262,8 @@ class AppleTvAdapter extends utils.Adapter {
                     const backendType = this.config.backend || 'pyatv';
                     const factory = new BackendFactory(backendType, this.log);
                     const backend = factory.create({});
-                    const devices = await backend.scan();
+                    const scanHosts = this.config.scanHosts || '';
+                    const devices = await backend.scan(scanHosts);
                     this.log.info('Scan found ' + devices.length + ' Apple TV device(s)');
                     this._respond(obj, { devices });
                 } catch (err) {

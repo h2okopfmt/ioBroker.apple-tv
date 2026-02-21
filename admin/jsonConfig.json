@@ -102,6 +102,21 @@
                         "de": "Wenn aktiviert, scannt der Adapter automatisch das Netzwerk und fügt neue Geräte hinzu. Zugangsdaten und IP-Adressen werden automatisch aktualisiert."
                     }
                 },
+                "scanHosts": {
+                    "type": "text",
+                    "label": {
+                        "en": "Scan Hosts (optional)",
+                        "de": "Scan-Ziele (optional)"
+                    },
+                    "sm": 12,
+                    "md": 6,
+                    "hidden": "!data.autoDiscovery",
+                    "placeholder": "192.168.1.47, 192.168.1.0/24",
+                    "help": {
+                        "en": "Comma-separated IPs or subnets to scan. Required for Docker (bridge network). Leave empty for automatic mDNS discovery.",
+                        "de": "Kommagetrennte IPs oder Subnetze zum Scannen. Erforderlich für Docker (Bridge-Netzwerk). Leer lassen für automatische mDNS-Erkennung."
+                    }
+                },
                 "scanInterval": {
                     "type": "number",
                     "label": {
