@@ -1,18 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Apple body - gradient from green to red like the classic Apple logo -->
-  <defs>
-    <linearGradient id="appleGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#4CD964"/>
-      <stop offset="30%" stop-color="#FFCC00"/>
-      <stop offset="60%" stop-color="#FF9500"/>
-      <stop offset="100%" stop-color="#FF3B30"/>
-    </linearGradient>
-  </defs>
-  <!-- Apple body -->
-  <path d="M32 12c2.4-2.8 6-4.4 9.2-4.4 0.4 4-1.4 7.8-3.6 10.4-2.4 2.8-6 4.8-9 4.6-0.6-3.6 1.4-7.6 3.4-10.6z" fill="#4CD964"/>
-  <path d="M40.8 24.6c-1.6-0.2-4.4 1.4-6.8 1.4-2.4 0-4.8-1.4-7.2-1.4-3.6 0-7.2 2.2-9 5.6-3.8 6.8-1 16.8 2.8 22.4 1.8 2.6 4 5.6 6.8 5.6 2.8-0.2 3.8-1.8 7-1.8 3.2 0 4.2 1.8 7 1.6 3-0.2 4.8-2.8 6.6-5.4 1.4-1.8 2.4-4 2.8-5-0.2 0-5.6-2.2-5.6-8.4 0-5.2 4.2-7.6 4.4-7.8-2.4-3.6-6.2-4-7.4-4.2l0.6-2.6z" fill="url(#appleGrad)"/>
-  <!-- Leaf -->
-  <path d="M32 12c0.4-3.2 2.4-6.4 4.8-8.4-0.4 3.2-2.4 6.4-4.8 8.4z" fill="#4CD964"/>
-  <!-- Stem -->
-  <path d="M33.5 4c0 0-0.5 4-1.5 8" stroke="#8B6914" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Background -->
+  <rect width="64" height="64" rx="14" fill="#1C1C1E"/>
+  <!-- TV screen -->
+  <rect x="12" y="10" width="40" height="28" rx="3" fill="#2C2C2E" stroke="#48484A" stroke-width="1"/>
+  <!-- Screen glow -->
+  <rect x="15" y="13" width="34" height="22" rx="2" fill="#0A84FF" opacity="0.15"/>
+  <!-- Play triangle on screen -->
+  <polygon points="28,18 28,30 38,24" fill="#0A84FF" opacity="0.8"/>
+  <!-- Stand -->
+  <rect x="26" y="39" width="12" height="2" rx="1" fill="#48484A"/>
+  <rect x="22" y="41" width="20" height="2" rx="1" fill="#3A3A3C"/>
+  <!-- Remote dots below -->
+  <circle cx="24" cy="52" r="2.5" fill="#FF9F0A"/>
+  <circle cx="32" cy="52" r="2.5" fill="#30D158"/>
+  <circle cx="40" cy="52" r="2.5" fill="#0A84FF"/>
 </svg>
