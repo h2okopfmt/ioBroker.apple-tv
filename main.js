@@ -240,6 +240,9 @@ class AppleTvAdapter extends utils.Adapter {
                 await manager.handleSeek(state.val);
             } else if (channel === 'apps' && stateName === 'launch') {
                 await manager.handleAppLaunch(state.val);
+            } else if (channel === 'apps' && stateName !== 'list' && stateName !== 'current' && stateName !== 'currentId') {
+                // Individual app button pressed
+                await manager.handleAppButton(stateName);
             }
         } catch (err) {
             this.log.error('Error handling ' + channel + '.' + stateName + ': ' + err.message);
