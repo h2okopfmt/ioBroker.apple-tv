@@ -5,6 +5,7 @@ const { execFile } = require('child_process');
 const { BackendFactory } = require('./lib/backend/backend-factory');
 const { PyatvBackend } = require('./lib/backend/pyatv');
 const { DeviceManager } = require('./lib/device-manager');
+const { StreamingManager } = require('./lib/streaming/streaming-manager');
 
 class AppleTvAdapter extends utils.Adapter {
     constructor(options) {
@@ -14,6 +15,7 @@ class AppleTvAdapter extends utils.Adapter {
         this.devices = new Map();
         this.backendFactory = null;
         this.autoScanTimer = null;
+        this.streamingManager = null;
 
         // Active pairing backends per device identifier (for multi-step pairing)
         /** @type {Map<string, import('./lib/backend/pyatv').PyatvBackend>} */
@@ -69,13 +71,36 @@ class AppleTvAdapter extends utils.Adapter {
             }
         }
 
-        // Step 4: Set adapter connection state
+        // Step 4: Initialize streaming manager and fetch channels
+        this.streamingManager = new StreamingManager(this, this.log);
+        this.streamingManager.init(this.config);
+
+        let streamingChannels = new Map();
+        if (this.streamingManager.providers.length > 0) {
+            try {
+                streamingChannels = await this.streamingManager.refreshAll();
+                this.log.info('Streaming channels loaded from ' + streamingChannels.size + ' provider(s)');
+            } catch (err) {
+                this.log.warn('Failed to load streaming channels: ' + err.message);
+            }
+        }
+
+        // Step 5: Refresh app lists with streaming channels for all devices
+        for (const [_deviceId, manager] of this.devices) {
+            try {
+                await manager.refreshAppList(streamingChannels);
+            } catch (err) {
+                this.log.debug('Failed to refresh app list: ' + err.message);
+            }
+        }
+
+        // Step 6: Set adapter connection state
         this.setState('info.connection', true, true);
 
-        // Step 5: Subscribe to all states
+        // Step 7: Subscribe to all states
         this.subscribeStates('*');
 
-        // Step 6: Schedule periodic re-scan for new devices
+        // Step 8: Schedule periodic re-scan for new devices
         if (autoDiscovery) {
             const scanInterval = (this.config.scanInterval || 300) * 1000; // default: 5 min
             this.autoScanTimer = setInterval(() => {
@@ -83,6 +108,21 @@ class AppleTvAdapter extends utils.Adapter {
                     this.log.debug('Periodic scan failed: ' + err.message);
                 });
             }, scanInterval);
+        }
+
+        // Step 9: Schedule periodic streaming channel refresh
+        const streaming = this.config.streaming || {};
+        const channelRefresh = (streaming.channelRefreshInterval || 3600) * 1000;
+        if (this.streamingManager.providers.length > 0) {
+            this.streamingManager.startPeriodicRefresh(streaming.channelRefreshInterval || 3600, async (channels) => {
+                for (const [_devId, mgr] of this.devices) {
+                    try {
+                        await mgr.refreshAppList(channels);
+                    } catch (err) {
+                        this.log.debug('Periodic app refresh failed: ' + err.message);
+                    }
+                }
+            });
         }
     }
 
@@ -202,7 +242,6 @@ class AppleTvAdapter extends utils.Adapter {
 
         await manager.createStateTree();
         await manager.connect();
-        await manager.refreshAppList();
 
         this.log.info('Device initialized: ' + (deviceConfig.name || deviceId));
     }
@@ -238,11 +277,20 @@ class AppleTvAdapter extends utils.Adapter {
                 await manager.handlePowerCommand(state.val);
             } else if (channel === 'playing' && stateName === 'position') {
                 await manager.handleSeek(state.val);
-            } else if (channel === 'apps' && stateName === 'launch') {
-                await manager.handleAppLaunch(state.val);
-            } else if (channel === 'apps' && stateName !== 'list' && stateName !== 'current' && stateName !== 'currentId') {
-                // Individual app button pressed
-                await manager.handleAppButton(stateName);
+            } else if (channel === 'apps') {
+                if (stateName === 'launch' && parts.length === 3) {
+                    // apps.launch = bundleId string
+                    await manager.handleAppLaunch(state.val);
+                } else if (parts.length === 4 && parts[3] === 'launch') {
+                    // apps.{appName}.launch
+                    await manager.handleAppFolderLaunch(stateName);
+                } else if (parts.length === 5 && parts[3] === 'channels') {
+                    // apps.{appName}.channels.{channelName}
+                    await manager.handleChannelButton(stateName, parts[4]);
+                } else if (parts.length === 3 && stateName !== 'list' && stateName !== 'current' && stateName !== 'currentId') {
+                    // Legacy: flat app button (backward compat)
+                    await manager.handleAppButton(stateName);
+                }
             }
         } catch (err) {
             this.log.error('Error handling ' + channel + '.' + stateName + ': ' + err.message);
@@ -386,6 +434,11 @@ class AppleTvAdapter extends utils.Adapter {
             if (this.autoScanTimer) {
                 clearInterval(this.autoScanTimer);
                 this.autoScanTimer = null;
+            }
+
+            // Stop streaming manager
+            if (this.streamingManager) {
+                this.streamingManager.stop();
             }
 
             // Abort any active pairing sessions

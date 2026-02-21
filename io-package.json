@@ -56,7 +56,16 @@
         "pairIdentifier": "",
         "pairProtocol": "airplay",
         "pairPin": "",
-        "devices": []
+        "devices": [],
+        "streaming": {
+            "waipuEnabled": false,
+            "waipuUsername": "",
+            "waipuPassword": "",
+            "zattooEnabled": false,
+            "zattooUsername": "",
+            "zattooPassword": "",
+            "channelRefreshInterval": 3600
+        }
     },
     "objects": [],
     "instanceObjects": [

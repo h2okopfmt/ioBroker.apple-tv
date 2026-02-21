@@ -390,6 +390,135 @@
                     "alsoDependsOn": ["pairIdentifier", "pairPin", "pairProtocol"]
                 }
             }
+        },
+        "streamingTab": {
+            "type": "panel",
+            "label": {
+                "en": "Streaming Services",
+                "de": "Streaming-Dienste"
+            },
+            "items": {
+                "_header_streaming": {
+                    "type": "header",
+                    "text": {
+                        "en": "TV Streaming Channels",
+                        "de": "TV Streaming-Kanäle"
+                    },
+                    "size": 4,
+                    "sm": 12
+                },
+                "_streamingHelp": {
+                    "type": "header",
+                    "text": {
+                        "en": "Enter your streaming service credentials to load channel lists into ioBroker. Channels appear as states under each app folder.",
+                        "de": "Gib deine Streaming-Zugangsdaten ein, um Senderlisten in ioBroker zu laden. Sender erscheinen als States unter jedem App-Ordner."
+                    },
+                    "size": 5,
+                    "sm": 12
+                },
+                "_divider_s1": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "_header_waipu": {
+                    "type": "header",
+                    "text": {
+                        "en": "waipu.tv",
+                        "de": "waipu.tv"
+                    },
+                    "size": 4,
+                    "sm": 12
+                },
+                "streaming.waipuEnabled": {
+                    "type": "checkbox",
+                    "label": {
+                        "en": "Enable waipu.tv channels",
+                        "de": "waipu.tv Kanäle aktivieren"
+                    },
+                    "sm": 12
+                },
+                "streaming.waipuUsername": {
+                    "type": "text",
+                    "label": {
+                        "en": "waipu.tv Username / Email",
+                        "de": "waipu.tv Benutzername / E-Mail"
+                    },
+                    "sm": 12,
+                    "md": 6,
+                    "hidden": "!data['streaming.waipuEnabled']"
+                },
+                "streaming.waipuPassword": {
+                    "type": "password",
+                    "label": {
+                        "en": "waipu.tv Password",
+                        "de": "waipu.tv Passwort"
+                    },
+                    "sm": 12,
+                    "md": 6,
+                    "hidden": "!data['streaming.waipuEnabled']"
+                },
+                "_divider_s2": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "_header_zattoo": {
+                    "type": "header",
+                    "text": {
+                        "en": "Zattoo",
+                        "de": "Zattoo"
+                    },
+                    "size": 4,
+                    "sm": 12
+                },
+                "streaming.zattooEnabled": {
+                    "type": "checkbox",
+                    "label": {
+                        "en": "Enable Zattoo channels",
+                        "de": "Zattoo Kanäle aktivieren"
+                    },
+                    "sm": 12
+                },
+                "streaming.zattooUsername": {
+                    "type": "text",
+                    "label": {
+                        "en": "Zattoo Username / Email",
+                        "de": "Zattoo Benutzername / E-Mail"
+                    },
+                    "sm": 12,
+                    "md": 6,
+                    "hidden": "!data['streaming.zattooEnabled']"
+                },
+                "streaming.zattooPassword": {
+                    "type": "password",
+                    "label": {
+                        "en": "Zattoo Password",
+                        "de": "Zattoo Passwort"
+                    },
+                    "sm": 12,
+                    "md": 6,
+                    "hidden": "!data['streaming.zattooEnabled']"
+                },
+                "_divider_s3": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "streaming.channelRefreshInterval": {
+                    "type": "number",
+                    "label": {
+                        "en": "Channel Refresh Interval (seconds)",
+                        "de": "Kanal-Aktualisierungsintervall (Sekunden)"
+                    },
+                    "min": 300,
+                    "max": 86400,
+                    "step": 300,
+                    "sm": 12,
+                    "md": 6,
+                    "help": {
+                        "en": "How often to refresh channel lists. Default: 3600 seconds (1 hour).",
+                        "de": "Wie oft die Kanallisten aktualisiert werden. Standard: 3600 Sekunden (1 Stunde)."
+                    }
+                }
+            }
         }
     }
 }
