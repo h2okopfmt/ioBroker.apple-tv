@@ -445,7 +445,7 @@
                     },
                     "sm": 12,
                     "md": 6,
-                    "hidden": "!data['streaming.waipuEnabled']"
+                    "hidden": "!data.streaming.waipuEnabled"
                 },
                 "streaming.waipuPassword": {
                     "type": "password",
@@ -455,7 +455,7 @@
                     },
                     "sm": 12,
                     "md": 6,
-                    "hidden": "!data['streaming.waipuEnabled']"
+                    "hidden": "!data.streaming.waipuEnabled"
                 },
                 "_divider_s2": {
                     "type": "divider",
@@ -486,7 +486,7 @@
                     },
                     "sm": 12,
                     "md": 6,
-                    "hidden": "!data['streaming.zattooEnabled']"
+                    "hidden": "!data.streaming.zattooEnabled"
                 },
                 "streaming.zattooPassword": {
                     "type": "password",
@@ -496,7 +496,7 @@
                     },
                     "sm": 12,
                     "md": 6,
-                    "hidden": "!data['streaming.zattooEnabled']"
+                    "hidden": "!data.streaming.zattooEnabled"
                 },
                 "_divider_s3": {
                     "type": "divider",
