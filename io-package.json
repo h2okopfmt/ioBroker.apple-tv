@@ -64,6 +64,14 @@
             "zattooEnabled": false,
             "zattooUsername": "",
             "zattooPassword": "",
+            "plutoTvEnabled": false,
+            "magentaTvEnabled": false,
+            "magentaTvUsername": "",
+            "magentaTvPassword": "",
+            "joynEnabled": false,
+            "ardEnabled": false,
+            "zdfEnabled": false,
+            "arteEnabled": false,
             "channelRefreshInterval": 3600
         }
     },

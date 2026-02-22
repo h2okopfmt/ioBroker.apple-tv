@@ -410,96 +410,256 @@
                 "_streamingHelp": {
                     "type": "header",
                     "text": {
-                        "en": "Enter your streaming service credentials to load channel lists into ioBroker. Channels appear as states under each app folder.",
-                        "de": "Gib deine Streaming-Zugangsdaten ein, um Senderlisten in ioBroker zu laden. Sender erscheinen als States unter jedem App-Ordner."
+                        "en": "Enable streaming services to load channel lists. Channels appear as states under each app folder. Use 'Test' to verify the connection.",
+                        "de": "Aktiviere Streaming-Dienste um Senderlisten zu laden. Sender erscheinen als States unter jedem App-Ordner. Nutze 'Testen' um die Verbindung zu prüfen."
                     },
                     "size": 5,
                     "sm": 12
                 },
-                "_divider_s1": {
+
+                "_divider_s_waipu": {
                     "type": "divider",
                     "sm": 12
                 },
                 "_header_waipu": {
                     "type": "header",
-                    "text": {
-                        "en": "waipu.tv",
-                        "de": "waipu.tv"
-                    },
+                    "text": { "en": "waipu.tv", "de": "waipu.tv" },
                     "size": 4,
                     "sm": 12
                 },
                 "streaming.waipuEnabled": {
                     "type": "checkbox",
-                    "label": {
-                        "en": "Enable waipu.tv channels",
-                        "de": "waipu.tv Kanäle aktivieren"
-                    },
-                    "sm": 12
+                    "label": { "en": "Enable waipu.tv channels", "de": "waipu.tv Kanäle aktivieren" },
+                    "sm": 12,
+                    "md": 9
+                },
+                "_testWaipu": {
+                    "type": "sendTo",
+                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "command": "testStreaming",
+                    "variant": "outlined",
+                    "sm": 12,
+                    "md": 3,
+                    "icon": "wifi",
+                    "hidden": "!data.streaming.waipuEnabled",
+                    "data": "{ \"provider\": \"waipu\", \"username\": \"${data.streaming.waipuUsername}\", \"password\": \"${data.streaming.waipuPassword}\" }",
+                    "alsoDependsOn": ["streaming.waipuEnabled", "streaming.waipuUsername", "streaming.waipuPassword"]
                 },
                 "streaming.waipuUsername": {
                     "type": "text",
-                    "label": {
-                        "en": "waipu.tv Username / Email",
-                        "de": "waipu.tv Benutzername / E-Mail"
-                    },
+                    "label": { "en": "Email", "de": "E-Mail" },
                     "sm": 12,
                     "md": 6,
                     "hidden": "!data.streaming.waipuEnabled"
                 },
                 "streaming.waipuPassword": {
                     "type": "password",
-                    "label": {
-                        "en": "waipu.tv Password",
-                        "de": "waipu.tv Passwort"
-                    },
+                    "label": { "en": "Password", "de": "Passwort" },
                     "sm": 12,
                     "md": 6,
                     "hidden": "!data.streaming.waipuEnabled"
                 },
-                "_divider_s2": {
+
+                "_divider_s_zattoo": {
                     "type": "divider",
                     "sm": 12
                 },
                 "_header_zattoo": {
                     "type": "header",
-                    "text": {
-                        "en": "Zattoo",
-                        "de": "Zattoo"
-                    },
+                    "text": { "en": "Zattoo", "de": "Zattoo" },
                     "size": 4,
                     "sm": 12
                 },
                 "streaming.zattooEnabled": {
                     "type": "checkbox",
-                    "label": {
-                        "en": "Enable Zattoo channels",
-                        "de": "Zattoo Kanäle aktivieren"
-                    },
-                    "sm": 12
+                    "label": { "en": "Enable Zattoo channels", "de": "Zattoo Kanäle aktivieren" },
+                    "sm": 12,
+                    "md": 9
+                },
+                "_testZattoo": {
+                    "type": "sendTo",
+                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "command": "testStreaming",
+                    "variant": "outlined",
+                    "sm": 12,
+                    "md": 3,
+                    "icon": "wifi",
+                    "hidden": "!data.streaming.zattooEnabled",
+                    "data": "{ \"provider\": \"zattoo\", \"username\": \"${data.streaming.zattooUsername}\", \"password\": \"${data.streaming.zattooPassword}\" }",
+                    "alsoDependsOn": ["streaming.zattooEnabled", "streaming.zattooUsername", "streaming.zattooPassword"]
                 },
                 "streaming.zattooUsername": {
                     "type": "text",
-                    "label": {
-                        "en": "Zattoo Username / Email",
-                        "de": "Zattoo Benutzername / E-Mail"
-                    },
+                    "label": { "en": "Email", "de": "E-Mail" },
                     "sm": 12,
                     "md": 6,
                     "hidden": "!data.streaming.zattooEnabled"
                 },
                 "streaming.zattooPassword": {
                     "type": "password",
-                    "label": {
-                        "en": "Zattoo Password",
-                        "de": "Zattoo Passwort"
-                    },
+                    "label": { "en": "Password", "de": "Passwort" },
                     "sm": 12,
                     "md": 6,
                     "hidden": "!data.streaming.zattooEnabled"
                 },
-                "_divider_s3": {
+
+                "_divider_s_magenta": {
                     "type": "divider",
+                    "sm": 12
+                },
+                "_header_magenta": {
+                    "type": "header",
+                    "text": { "en": "MagentaTV (Telekom)", "de": "MagentaTV (Telekom)" },
+                    "size": 4,
+                    "sm": 12
+                },
+                "streaming.magentaTvEnabled": {
+                    "type": "checkbox",
+                    "label": { "en": "Enable MagentaTV channels", "de": "MagentaTV Kanäle aktivieren" },
+                    "sm": 12,
+                    "md": 9
+                },
+                "_testMagentaTv": {
+                    "type": "sendTo",
+                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "command": "testStreaming",
+                    "variant": "outlined",
+                    "sm": 12,
+                    "md": 3,
+                    "icon": "wifi",
+                    "hidden": "!data.streaming.magentaTvEnabled",
+                    "data": "{ \"provider\": \"magentaTv\" }",
+                    "alsoDependsOn": ["streaming.magentaTvEnabled"]
+                },
+                "_magentaHelp": {
+                    "type": "header",
+                    "text": {
+                        "en": "Channel list is loaded via anonymous session. No Telekom login required.",
+                        "de": "Senderliste wird über anonyme Sitzung geladen. Kein Telekom-Login erforderlich."
+                    },
+                    "size": 5,
+                    "sm": 12,
+                    "hidden": "!data.streaming.magentaTvEnabled"
+                },
+
+                "_divider_s_joyn": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "_header_joyn": {
+                    "type": "header",
+                    "text": { "en": "Joyn (ProSiebenSat.1)", "de": "Joyn (ProSiebenSat.1)" },
+                    "size": 4,
+                    "sm": 12
+                },
+                "streaming.joynEnabled": {
+                    "type": "checkbox",
+                    "label": { "en": "Enable Joyn live TV channels", "de": "Joyn Live-TV Kanäle aktivieren" },
+                    "sm": 12,
+                    "md": 9
+                },
+                "_testJoyn": {
+                    "type": "sendTo",
+                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "command": "testStreaming",
+                    "variant": "outlined",
+                    "sm": 12,
+                    "md": 3,
+                    "icon": "wifi",
+                    "hidden": "!data.streaming.joynEnabled",
+                    "data": "{ \"provider\": \"joyn\" }",
+                    "alsoDependsOn": ["streaming.joynEnabled"]
+                },
+                "_joynHelp": {
+                    "type": "header",
+                    "text": {
+                        "en": "Free live TV channels. No account required.",
+                        "de": "Kostenlose Live-TV Kanäle. Kein Account erforderlich."
+                    },
+                    "size": 5,
+                    "sm": 12,
+                    "hidden": "!data.streaming.joynEnabled"
+                },
+
+                "_divider_s_pluto": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "_header_pluto": {
+                    "type": "header",
+                    "text": { "en": "Pluto TV", "de": "Pluto TV" },
+                    "size": 4,
+                    "sm": 12
+                },
+                "streaming.plutoTvEnabled": {
+                    "type": "checkbox",
+                    "label": { "en": "Enable Pluto TV channels", "de": "Pluto TV Kanäle aktivieren" },
+                    "sm": 12,
+                    "md": 9
+                },
+                "_testPlutoTv": {
+                    "type": "sendTo",
+                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "command": "testStreaming",
+                    "variant": "outlined",
+                    "sm": 12,
+                    "md": 3,
+                    "icon": "wifi",
+                    "hidden": "!data.streaming.plutoTvEnabled",
+                    "data": "{ \"provider\": \"plutoTv\" }",
+                    "alsoDependsOn": ["streaming.plutoTvEnabled"]
+                },
+                "_plutoHelp": {
+                    "type": "header",
+                    "text": {
+                        "en": "Free ad-supported streaming TV. No account required.",
+                        "de": "Kostenloses werbefinanziertes Streaming-TV. Kein Account erforderlich."
+                    },
+                    "size": 5,
+                    "sm": 12,
+                    "hidden": "!data.streaming.plutoTvEnabled"
+                },
+
+                "_divider_s_public": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "_header_public": {
+                    "type": "header",
+                    "text": {
+                        "en": "Public Broadcasters (no account needed)",
+                        "de": "Öffentlich-Rechtliche (kein Account nötig)"
+                    },
+                    "size": 4,
+                    "sm": 12
+                },
+                "streaming.ardEnabled": {
+                    "type": "checkbox",
+                    "label": { "en": "ARD Mediathek (Das Erste, Regional, etc.)", "de": "ARD Mediathek (Das Erste, Regional, etc.)" },
+                    "sm": 12,
+                    "md": 4
+                },
+                "streaming.zdfEnabled": {
+                    "type": "checkbox",
+                    "label": { "en": "ZDF Mediathek (ZDF, ZDFneo, ZDFinfo)", "de": "ZDF Mediathek (ZDF, ZDFneo, ZDFinfo)" },
+                    "sm": 12,
+                    "md": 4
+                },
+                "streaming.arteEnabled": {
+                    "type": "checkbox",
+                    "label": { "en": "ARTE (DE + FR)", "de": "ARTE (DE + FR)" },
+                    "sm": 12,
+                    "md": 4
+                },
+
+                "_divider_s_settings": {
+                    "type": "divider",
+                    "sm": 12
+                },
+                "_header_settings": {
+                    "type": "header",
+                    "text": { "en": "Settings", "de": "Einstellungen" },
+                    "size": 4,
                     "sm": 12
                 },
                 "streaming.channelRefreshInterval": {

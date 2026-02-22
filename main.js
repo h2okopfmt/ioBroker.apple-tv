@@ -404,6 +404,40 @@ class AppleTvAdapter extends utils.Adapter {
                 break;
             }
 
+            // ── Test Streaming Provider ──
+            case 'testStreaming': {
+                try {
+                    const msg = obj.message || {};
+                    const providerKey = msg.provider;
+                    if (!providerKey) {
+                        this._respond(obj, { error: 'No provider specified' });
+                        return;
+                    }
+
+                    const { StreamingManager: SM } = require('./lib/streaming/streaming-manager');
+                    const testMgr = new SM(this, this.log);
+                    const credentials = {
+                        username: msg.username || '',
+                        password: msg.password || '',
+                    };
+
+                    const result = await testMgr.testProvider(providerKey, credentials);
+
+                    if (result.success) {
+                        this._respond(obj, {
+                            result: '✅ ' + (result.providerName || providerKey) + ': ' + result.channels + ' Kanäle geladen',
+                        });
+                    } else {
+                        this._respond(obj, {
+                            error: '❌ ' + (result.providerName || providerKey) + ': ' + (result.error || 'Verbindung fehlgeschlagen'),
+                        });
+                    }
+                } catch (err) {
+                    this._respond(obj, { error: '❌ Test fehlgeschlagen: ' + err.message });
+                }
+                break;
+            }
+
             // ── Check pyatv ──
             case 'checkPyatv': {
                 const available = await PyatvBackend.checkInstalled();
