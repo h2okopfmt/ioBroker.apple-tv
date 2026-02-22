@@ -435,15 +435,15 @@
                 },
                 "_testWaipu": {
                     "type": "sendTo",
-                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "label": { "en": "Test", "de": "Testen" },
                     "command": "testStreaming",
                     "variant": "outlined",
                     "sm": 12,
                     "md": 3,
                     "icon": "wifi",
                     "hidden": "!data.streaming.waipuEnabled",
-                    "data": "{ \"provider\": \"waipu\", \"username\": \"${data.streaming.waipuUsername}\", \"password\": \"${data.streaming.waipuPassword}\" }",
-                    "alsoDependsOn": ["streaming.waipuEnabled", "streaming.waipuUsername", "streaming.waipuPassword"]
+                    "jsonData": "{\"provider\": \"waipu\"}",
+                    "alsoDependsOn": ["streaming.waipuEnabled"]
                 },
                 "streaming.waipuUsername": {
                     "type": "text",
@@ -478,15 +478,15 @@
                 },
                 "_testZattoo": {
                     "type": "sendTo",
-                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "label": { "en": "Test", "de": "Testen" },
                     "command": "testStreaming",
                     "variant": "outlined",
                     "sm": 12,
                     "md": 3,
                     "icon": "wifi",
                     "hidden": "!data.streaming.zattooEnabled",
-                    "data": "{ \"provider\": \"zattoo\", \"username\": \"${data.streaming.zattooUsername}\", \"password\": \"${data.streaming.zattooPassword}\" }",
-                    "alsoDependsOn": ["streaming.zattooEnabled", "streaming.zattooUsername", "streaming.zattooPassword"]
+                    "jsonData": "{\"provider\": \"zattoo\"}",
+                    "alsoDependsOn": ["streaming.zattooEnabled"]
                 },
                 "streaming.zattooUsername": {
                     "type": "text",
@@ -521,14 +521,14 @@
                 },
                 "_testMagentaTv": {
                     "type": "sendTo",
-                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "label": { "en": "Test", "de": "Testen" },
                     "command": "testStreaming",
                     "variant": "outlined",
                     "sm": 12,
                     "md": 3,
                     "icon": "wifi",
                     "hidden": "!data.streaming.magentaTvEnabled",
-                    "data": "{ \"provider\": \"magentaTv\" }",
+                    "jsonData": "{\"provider\": \"magentaTv\"}",
                     "alsoDependsOn": ["streaming.magentaTvEnabled"]
                 },
                 "_magentaHelp": {
@@ -560,14 +560,14 @@
                 },
                 "_testJoyn": {
                     "type": "sendTo",
-                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "label": { "en": "Test", "de": "Testen" },
                     "command": "testStreaming",
                     "variant": "outlined",
                     "sm": 12,
                     "md": 3,
                     "icon": "wifi",
                     "hidden": "!data.streaming.joynEnabled",
-                    "data": "{ \"provider\": \"joyn\" }",
+                    "jsonData": "{\"provider\": \"joyn\"}",
                     "alsoDependsOn": ["streaming.joynEnabled"]
                 },
                 "_joynHelp": {
@@ -599,14 +599,14 @@
                 },
                 "_testPlutoTv": {
                     "type": "sendTo",
-                    "label": { "en": "Test Connection", "de": "Verbindung testen" },
+                    "label": { "en": "Test", "de": "Testen" },
                     "command": "testStreaming",
                     "variant": "outlined",
                     "sm": 12,
                     "md": 3,
                     "icon": "wifi",
                     "hidden": "!data.streaming.plutoTvEnabled",
-                    "data": "{ \"provider\": \"plutoTv\" }",
+                    "jsonData": "{\"provider\": \"plutoTv\"}",
                     "alsoDependsOn": ["streaming.plutoTvEnabled"]
                 },
                 "_plutoHelp": {

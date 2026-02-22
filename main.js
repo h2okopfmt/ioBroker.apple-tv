@@ -410,30 +410,40 @@ class AppleTvAdapter extends utils.Adapter {
                     const msg = obj.message || {};
                     const providerKey = msg.provider;
                     if (!providerKey) {
-                        this._respond(obj, { error: 'No provider specified' });
+                        this._respond(obj, { error: 'Kein Provider angegeben' });
                         return;
                     }
 
+                    // Read current config for credentials
+                    const streaming = this.config.streaming || {};
+                    const credMap = {
+                        waipu: { username: streaming.waipuUsername || '', password: streaming.waipuPassword || '' },
+                        zattoo: { username: streaming.zattooUsername || '', password: streaming.zattooPassword || '' },
+                        magentaTv: { username: streaming.magentaTvUsername || '', password: streaming.magentaTvPassword || '' },
+                        plutoTv: {},
+                        joyn: {},
+                        ard: {},
+                        zdf: {},
+                        arte: {},
+                    };
+
                     const { StreamingManager: SM } = require('./lib/streaming/streaming-manager');
                     const testMgr = new SM(this, this.log);
-                    const credentials = {
-                        username: msg.username || '',
-                        password: msg.password || '',
-                    };
+                    const credentials = credMap[providerKey] || {};
 
                     const result = await testMgr.testProvider(providerKey, credentials);
 
                     if (result.success) {
                         this._respond(obj, {
-                            result: '✅ ' + (result.providerName || providerKey) + ': ' + result.channels + ' Kanäle geladen',
+                            result: (result.providerName || providerKey) + ': ' + result.channels + ' Kanäle geladen',
                         });
                     } else {
                         this._respond(obj, {
-                            error: '❌ ' + (result.providerName || providerKey) + ': ' + (result.error || 'Verbindung fehlgeschlagen'),
+                            error: (result.providerName || providerKey) + ': ' + (result.error || 'Verbindung fehlgeschlagen'),
                         });
                     }
                 } catch (err) {
-                    this._respond(obj, { error: '❌ Test fehlgeschlagen: ' + err.message });
+                    this._respond(obj, { error: 'Test fehlgeschlagen: ' + err.message });
                 }
                 break;
             }
